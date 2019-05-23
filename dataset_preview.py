@@ -1,19 +1,12 @@
 # Import necessary modules
 import torch
 from tqdm import tqdm
-import numpy as np
-import torch.nn as nn
-import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
-import matplotlib.pyplot as plt
 from PIL import Image
-import math
 
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms, utils
-
-get_ipython().run_line_magic('matplotlib', 'inline')
 
 image_folder_path = './dataset/'
 
@@ -32,8 +25,8 @@ def gain_sample(dataset, batch_size, image_size=4):
     return loader
 
 dataset        = datasets.ImageFolder(image_folder_path)
-origin_loader = gain_sample(dataset, 240, 64)
-data_loader = iter(origin_loader)
+origin_loader  = gain_sample(dataset, 240, 64)
+data_loader    = iter(origin_loader)
 
 for i in range(10):
     real_image, label = next(data_loader)
