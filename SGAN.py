@@ -1,39 +1,6 @@
 
 # coding: utf-8
 
-# - **迭代记录**
-#     - **Working：羽未(umi)迭代**
-#         - PLAN: 支持 Evaluate 模式
-#         - PLAN: 支持常用 metrics
-#     - **5/16-5/19：白羽(shiroha)迭代**
-#         - 5/19: 构建新的动漫脸部数据集
-#         - 5/16: 允许从一个历史记录点开始继续训练
-#         - 5/16: 引入 Style mixing 机制
-#         - 5/16：Debug: 修复了全连接映射层没有介入运算和更新的 BUG
-#     - **5/13-1/15：鸥(kamome)迭代**
-#         - 5/15: Debug: 显存泄漏和共享内存冲突
-#         - 5/14: Debug: Windows 下并行冲突（但现在仅在单进程执行，效率缓慢，切换到 Linux 继续开发）
-#         - 5/13: 引入完整的 Progressive GAN[2] 网络结构和训练模式
-#         - 5/12：引入了 R1 正则[1]和常量输入
-#         - 5/12：初步实现了 Style-based GAN
-# - **训练计划**
-#     - （接力式地）训练一个基于场景 CG 数据集的 SGAN（512px）
-#     - （接力式地）训练一个基于动漫人物脸部数据集的 SGAN（1024px）
-#     - （接力式地）训练一个基于FFHQ删减版的 SGAN（1024px）
-# 
-# [1] Mescheder, L., Geiger, A., & Nowozin, S. (2018). Which Training Methods for GANs do actually Converge? Retrieved from http://arxiv.org/abs/1801.04406
-# [2] Karras, T., Aila, T., Laine, S., & Lehtinen, J. (2017). Progressive Growing of GANs for Improved Quality, Stability, and Variation. 1–26. Retrieved from http://arxiv.org/abs/1710.10196
-
-# In[1]:
-
-
-# !pip install -i https://pypi.tuna.tsinghua.edu.cn/simple tqdm
-# !pip install --upgrade --user -i https://pypi.tuna.tsinghua.edu.cn/simple torch 
-
-
-# In[2]:
-
-
 # Import necessary modules
 import torch
 from tqdm import tqdm
@@ -48,12 +15,6 @@ import math
 
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms, utils
-
-get_ipython().run_line_magic('matplotlib', 'inline')
-
-
-# In[3]:
-
 
 # 5/15: No using shared memory
 import sys
@@ -78,10 +39,6 @@ for t in torch._storage_classes:
     else:
         if t in ForkingPickler._extra_reducers:
             del ForkingPickler._extra_reducers[t]
-
-
-# In[ ]:
-
 
 # Constraints
 # Input: [batch_size, in_channels, height, width]
@@ -211,7 +168,6 @@ class Scale_B(nn.Module):
 # Early convolutional block
 # 5/13: Debug - tensor -> nn.Parameter
 # 5/13: Remove noise generating module
-# TODO: Remove upsample
 class Early_StyleConv_Block(nn.Module):
     '''
     This is the very first block of generator that get the constant value as input
@@ -361,7 +317,6 @@ class Intermediate_Generator(nn.Module):
 # 5/13: Support progressive training
 # 5/13: Proxy noise generating
 # 5/13: Proxy upsampling
-# TODO: style mixing
 class StyleBased_Generator(nn.Module):
     '''
     Main Module
@@ -533,10 +488,6 @@ class Discriminator(nn.Module):
         result = self.fc(result)
         return result
 
-
-# In[ ]:
-
-
 # use idel gpu
 # it's better to use enviroment variable
 # if you want to use multiple gpus, please
@@ -621,8 +572,6 @@ def imshow(tensor, i):
     ndarr = grid.mul_(255).add_(0.5).clamp_(0, 255).permute(1, 2, 0).to('cpu', torch.uint8).numpy()
     img = Image.fromarray(ndarr)
     img.save(f'{save_folder_path}sample-iter{i}.png')
-    plt.imshow(img)
-    plt.show()
     
 # Train function
 def train(generator, discriminator, g_optim, d_optim, dataset, step, startpoint=0, used_sample=0,
@@ -831,4 +780,3 @@ if is_train:
 else:
     # Do some evaluation here
     pass
-
