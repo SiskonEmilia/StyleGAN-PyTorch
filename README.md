@@ -1,5 +1,11 @@
 # StyleGAN-PyTorch
 
+This is a simple but complete pytorch-version implementation of Nvidia's Style-based GAN[3]. We've train this model on [our new anime face dataset](https://github.com/SiskonEmilia/Anime-Wifu-Dataset) and a subset of FFHQ, you can download our pre-trained model to evaluate or continue training by yourself.
+
+## Preview
+
+*Not available yet.*
+
 ## Versions
 
 We provide you with two versions of implementations: the `SGAN.ipynb` for jupyter notebook with GUI and the `SGAN.py` for CLI only. 
@@ -47,6 +53,7 @@ When you train the model yourself, parameters of the model will be saved to `./c
 ## Changelog
 
 - Working: Umi Iteration
+  - TODO: Divide codes into files
   - TODO: Support evaluate-only mode
   - TODO: Support common metrics
   - 5/23: DEBUG: Leak of VRAM
@@ -57,10 +64,10 @@ When you train the model yourself, parameters of the model will be saved to `./c
   - 5/19: Construct [a new anime face dataset](https://github.com/SiskonEmilia/Anime-Wifu-Dataset)
   - 5/16: Able to continue training from a historic checkpoint
   - 5/16: Introduce style-mixing feature
-  - 5/16: Debug: Fix the bug that the full connected mapping layer does not participate in calculation and back-propagation.
+  - 5/16: DEBUG: Fix the bug that the full connected mapping layer does not participate in calculation and back-propagation.
 - 5/13 - 5/15: Kamome Iteration
-  - 5/15: Debug: VRAM leak and shared memory conflict
-  - 5/14: Debug: Parallel conflict on Windows (Due to the speed limit, we migrate to Linux platform)
+  - 5/15: DEBUG: VRAM leak and shared memory conflict
+  - 5/14: DEBUG: Parallel conflict on Windows (Due to the speed limit, we migrate to Linux platform)
   - 5/13: Introduce complete Progressive GAN[2] and its training method.
   - 5/12: Introduce R1 regularization[1] and constant input vector.
   - 5/12: Early implementation of Style-based GAN.
@@ -70,3 +77,5 @@ When you train the model yourself, parameters of the model will be saved to `./c
 [1] Mescheder, L., Geiger, A., & Nowozin, S. (2018). Which Training Methods for GANs do actually Converge? Retrieved from http://arxiv.org/abs/1801.04406
 
 [2] Karras, T., Aila, T., Laine, S., & Lehtinen, J. (2017). Progressive Growing of GANs for Improved Quality, Stability, and Variation. 1–26. Retrieved from http://arxiv.org/abs/1710.10196
+
+[3] Karras, T., Laine, S., & Aila, T. (2018). A Style-Based Generator Architecture for Generative Adversarial Networks. Retrieved from http://arxiv.org/abs/1812.04948
