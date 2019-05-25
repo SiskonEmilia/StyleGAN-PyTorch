@@ -38,6 +38,7 @@ As we did not provide you with any optional command parameters, you can only cha
 |DGR|how many times will discriminator be trained before training generator|
 |n_show_loss|loss will be recorded every `n_show_loss` iterations|
 |step|which layer to start training|
+|max_step|maximum resolution of images is $2 ^ (max_step + 2)$|
 |style_mixing|layers to use 2nd style to evaluate|
 |image_folder_path|path to the dataset folder that contains images|
 |save_folder_path|path to the folder that generated images will be saved to|
@@ -77,6 +78,7 @@ We use Fréchet Inception Distance to estimate the performance of our implementa
   - TODO: Estimate performance of model with FID
   - TODO: Generate preview images
   - TODO: Upload pre-trained models and dataset
+  - 5/25: Allow users to edit maximum resolution (step).
 - 5/20-5/23: Umi Iteration
   - 5/23: Divide codes into files
   - 5/23: Support evaluate-only mode

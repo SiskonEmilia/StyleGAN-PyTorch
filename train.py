@@ -65,6 +65,7 @@ n_sample          = 120000
 DGR               = 1
 n_show_loss       = 40
 step              = 1 # Train from (8 * 8)
+max_step          = 8 # Maximum step (8 for 1024^2)
 image_folder_path = './dataset/'
 save_folder_path  = './results/'
 
@@ -130,7 +131,7 @@ def train(generator, discriminator, g_optim, d_optim, dataset, step, startpoint=
     for i in progress_bar:
         alpha = min(1, alpha + batch_size.get(resolution, mini_batch_size) / (n_sample * 2))
         
-        if used_sample > n_sample * 2 and step < 8: 
+        if used_sample > n_sample * 2 and step < max_step: 
             step += 1
             
             alpha = 0
