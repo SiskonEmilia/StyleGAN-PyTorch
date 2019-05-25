@@ -38,7 +38,7 @@ As we did not provide you with any optional command parameters, you can only cha
 |DGR|how many times will discriminator be trained before training generator|
 |n_show_loss|loss will be recorded every `n_show_loss` iterations|
 |step|which layer to start training|
-|max_step|maximum resolution of images is $2 ^ (max_step + 2)$|
+|max_step|maximum resolution of images is 2 ^ (max_step + 2)|
 |style_mixing|layers to use 2nd style to evaluate|
 |image_folder_path|path to the dataset folder that contains images|
 |save_folder_path|path to the folder that generated images will be saved to|
