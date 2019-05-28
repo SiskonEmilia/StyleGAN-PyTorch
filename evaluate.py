@@ -35,9 +35,23 @@ if os.path.exists('checkpoint/trained.pth'):
 else:
     raise IOError('No checkpoint file found at ./checkpoint/trained.pth')
 generator.eval()
+# No computing gradients
+for param in generator.parameters():
+    param.requires_grad = False
 
-def evaluate(latent_code, noise):
+def compute_latent_cernter(batch_size=1024, multimes=10):
+    appro_latent_center = None
+    for i in range(multimes):
+        if appro_latent_center is None:
+            appro_latent_center = generator.center_w(torch.randn((batch_size, dim_latent)).to(device))
+        else:
+            appro_latent_center += generator.center_w(torch.randn((batch_size, dim_latent)).to(device))
+    appro_latent_center /= multimes
+    return appro_latent_center
+
+def evaluate(latent_code, noise, latent_w_center=None, psi=0, style_mixing=[]):
     if n_gpu > 1:
-        return nn.parallel.data_parallel(generator, (latent_code, step, 1, noise, style_mixing), range(n_gpu))
+        return nn.parallel.data_parallel(generator, (latent_code, step, 1, noise, style_mixing,
+            latent_w_center, psi), range(n_gpu))
     else:
-        return generator(latent_code, step, 1, noise, style_mixing)
+        return generator(latent_code, step, 1, noise, style_mixing, latent_w_center, psi)

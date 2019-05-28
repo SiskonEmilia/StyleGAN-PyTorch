@@ -35,6 +35,7 @@ As we did not provide you with any optional command parameters, you can only cha
 |dim_latent|dimension of latent space|
 |dim_input|size of the first layer of generator|
 |n_sample|how many samples will be used to train a single layer|
+|n_sample_total|how many samples will be used to train the whole model|
 |DGR|how many times will discriminator be trained before training generator|
 |n_show_loss|loss will be recorded every `n_show_loss` iterations|
 |step|which layer to start training|
@@ -78,6 +79,7 @@ We use Fréchet Inception Distance to estimate the performance of our implementa
   - TODO: Estimate performance of model with FID
   - TODO: Generate preview images
   - TODO: Upload pre-trained models and dataset
+  - 5/28: Support truncation trick in W while evaluating (usable in evaluate.py)
   - 5/25: Allow users to edit maximum resolution (step).
 - 5/20-5/23: Umi Iteration
   - 5/23: Divide codes into files
