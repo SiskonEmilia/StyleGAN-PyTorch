@@ -102,7 +102,7 @@ def train(generator, discriminator, g_optim, d_optim, dataset, step, iteration=0
     reset_LR(g_optim, learning_rate.get(resolution, 0.001))
     reset_LR(d_optim, learning_rate.get(resolution, 0.001))
     progress_bar = tqdm(total=n_sample_total)
-    progress_bar.update(startpoint)
+    progress_bar.update(used_sample)
     # Train
     while used_sample < n_sample_total:
         iteration += 1
